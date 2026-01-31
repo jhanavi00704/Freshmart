@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FRESHMART - Fresh Groceries Delivered to Your Door</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Raleway:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-pink: #db2777;
+            --light-pink: #f472b6;
+            --accent-pink: #ec4899;
+            --dark-gray: #1b263b;
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Raleway', sans-serif;
+            background: var(--light-bg);
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+        
+        /* Navigation */
+        nav {
+            background: var(--white);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            animation: slideDown 0.5s ease;
+        }
+        
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-pink);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo-icon {
+            font-size: 2.5rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-pink);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-pink);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .cart-icon {
+            position: relative;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background: var(--accent-pink);
+            color: white;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-pink) 0%, var(--light-pink) 100%);
+            color: white;
+            padding: 5rem 5% 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="rgba(255,255,255,0.05)"/></svg>');
+            background-size: 100px;
+            opacity: 0.3;
+        }
+        
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-text h1 {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            animation: fadeInLeft 1s ease;
+        }
+        
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .hero-text p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            animation: fadeInLeft 1s ease 0.2s backwards;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            animation: fadeInLeft 1s ease 0.4s backwards;
+        }
+        
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            background: var(--accent-pink);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #ff8555;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.3);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-secondary:hover {
+            background: white;
+            color: var(--primary-pink);
+        }
+        
+        .hero-image {
+            text-align: center;
+            animation: fadeInRight 1s ease 0.3s backwards;
+        }
+        
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.2));
+        }
+        
+        /* Categories Section */
+        .categories {
+            padding: 5rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary-pink);
+        }
+        
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .category-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .category-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        
+        .category-card h3 {
+            font-family: 'Quicksand', sans-serif;
+            color: var(--primary-pink);
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+        
+        .category-card p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        /* Featured Products */
+        .featured-products {
+            padding: 5rem 5%;
+            background: white;
+        }
+        
+        .products-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+        
+        .product-card {
+            background: var(--light-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+        }
+        
+        .product-info {
+            padding: 1.5rem;
+        }
+        
+        .product-category {
+            color: var(--light-pink);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-name {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.3rem;
+            color: var(--dark-gray);
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-description {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-pink);
+        }
+        
+        .add-to-cart-btn {
+            background: var(--primary-pink);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .add-to-cart-btn:hover {
+            background: var(--light-pink);
+            transform: scale(1.05);
+        }
+        
+        /* Features */
+        .features {
+            padding: 4rem 5%;
+            background: var(--primary-pink);
+            color: white;
+        }
+        
+        .features-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            text-align: center;
+        }
+        
+        .feature-item {
+            padding: 2rem;
+        }
+        
+        .feature-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-item h3 {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-item p {
+            opacity: 0.9;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark-gray);
+            color: white;
+            padding: 3rem 5% 1.5rem;
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            font-family: 'Quicksand', sans-serif;
+            margin-bottom: 1.5rem;
+            color: var(--light-pink);
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            line-height: 2.5;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: var(--accent-pink);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
+        }
+        
+        @media (max-width: 968px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🛒</span>
+                FRESHMART
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="signin.html">Sign In</a></li>
+                <li>
+                    <a href="cart.html" class="cart-icon">
+                        🛒
+                        <span class="cart-count" id="cartCount">0</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Fresh Groceries Delivered to Your Doorstep</h1>
+                <p>Quality produce, pantry essentials, and organic products delivered within hours. Shop smart, eat fresh!</p>
+                <div class="cta-buttons">
+                    <a href="products.html" class="btn btn-primary">Shop Now</a>
+                    <a href="about.html" class="btn btn-secondary">Learn More</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=600&h=500&fit=crop" alt="Fresh Groceries">
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories">
+        <h2 class="section-title">Shop by Category</h2>
+        <div class="categories-grid">
+            <div class="category-card" onclick="window.location.href='products.html'">
+                <div class="category-icon">🥬</div>
+                <h3>Fresh Vegetables</h3>
+                <p>Farm-fresh vegetables delivered daily</p>
+            </div>
+            <div class="category-card" onclick="window.location.href='products.html'">
+                <div class="category-icon">🍎</div>
+                <h3>Fresh Fruits</h3>
+                <p>Seasonal fruits at best prices</p>
+            </div>
+            <div class="category-card" onclick="window.location.href='products.html'">
+                <div class="category-icon">🥛</div>
+                <h3>Dairy Products</h3>
+                <p>Fresh milk, cheese, and more</p>
+            </div>
+            <div class="category-card" onclick="window.location.href='products.html'">
+                <div class="category-icon">🍞</div>
+                <h3>Bakery</h3>
+                <p>Fresh bread and baked goods</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="featured-products">
+        <div class="products-container">
+            <h2 class="section-title">Featured Products</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">🥬</div>
+                    <div class="product-info">
+                        <div class="product-category">Vegetables</div>
+                        <h3 class="product-name">Organic Spinach</h3>
+                        <p class="product-description">Fresh organic spinach, 250g bunch</p>
+                        <div class="product-footer">
+                            <div class="product-price">$2.99</div>
+                            <button class="add-to-cart-btn" onclick="addToCart('Organic Spinach', 2.99)">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">🍎</div>
+                    <div class="product-info">
+                        <div class="product-category">Fruits</div>
+                        <h3 class="product-name">Red Apples</h3>
+                        <p class="product-description">Fresh red apples, 1kg pack</p>
+                        <div class="product-footer">
+                            <div class="product-price">$4.99</div>
+                            <button class="add-to-cart-btn" onclick="addToCart('Red Apples', 4.99)">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">🥛</div>
+                    <div class="product-info">
+                        <div class="product-category">Dairy</div>
+                        <h3 class="product-name">Fresh Milk</h3>
+                        <p class="product-description">Whole milk, 1 liter</p>
+                        <div class="product-footer">
+                            <div class="product-price">$3.49</div>
+                            <button class="add-to-cart-btn" onclick="addToCart('Fresh Milk', 3.49)">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">🍞</div>
+                    <div class="product-info">
+                        <div class="product-category">Bakery</div>
+                        <h3 class="product-name">Whole Wheat Bread</h3>
+                        <p class="product-description">Fresh baked whole wheat bread</p>
+                        <div class="product-footer">
+                            <div class="product-price">$2.49</div>
+                            <button class="add-to-cart-btn" onclick="addToCart('Whole Wheat Bread', 2.49)">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+        <div class="features-container">
+            <div class="feature-item">
+                <div class="feature-icon">🚚</div>
+                <h3>Fast Delivery</h3>
+                <p>Same-day delivery on all orders</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">✨</div>
+                <h3>100% Fresh</h3>
+                <p>Farm-to-door freshness guaranteed</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">💳</div>
+                <h3>Secure Payment</h3>
+                <p>Safe and secure online payments</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🌱</div>
+                <h3>Organic Options</h3>
+                <p>Wide range of organic products</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>FRESHMART</h3>
+                <p>Your trusted online grocery store delivering fresh products to your doorstep daily.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Track Order</a></li>
+                    <li><a href="#">Returns</a></li>
+                    <li><a href="#">Shipping Info</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <ul>
+                    <li><a href="tel:+1234567890">📞 +1 (234) 567-890</a></li>
+                    <li><a href="mailto:info@freshmart.com">✉️ info@freshmart.com</a></li>
+                    <li><a href="#">📍 123 Market Street</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 FRESHMART. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Cart functionality
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        
+        function updateCartCount() {
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = count;
+        }
+        
+        function addToCart(name, price) {
+            const existingItem = cart.find(item => item.name === name);
+            
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({ name, price, quantity: 1 });
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            alert(`${name} added to cart!`);
+        }
+        
+        // Initialize
+        updateCartCount();
+    </script>
+</body>
+</html>
