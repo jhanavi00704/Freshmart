@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation - FRESHMART</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Raleway:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-pink: #db2777;
+            --light-pink: #f472b6;
+            --accent-pink: #ec4899;
+            --dark-gray: #1b263b;
+            --light-bg: #f8f9fa;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { font-family: 'Raleway', sans-serif; background: var(--light-bg); color: var(--dark-gray); }
+        
+        nav { background: white; box-shadow: 0 2px 15px rgba(0,0,0,0.1); }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .logo {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-pink);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .confirmation-container {
+            max-width: 800px;
+            margin: 4rem auto;
+            padding: 0 5%;
+            text-align: center;
+        }
+        
+        .success-icon {
+            width: 100px;
+            height: 100px;
+            background: #4caf50;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-size: 3rem;
+            animation: scaleIn 0.5s ease;
+        }
+        
+        @keyframes scaleIn {
+            from { transform: scale(0); }
+            to { transform: scale(1); }
+        }
+        
+        h1 {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 2.5rem;
+            color: var(--primary-pink);
+            margin-bottom: 1rem;
+        }
+        
+        .order-number {
+            font-size: 1.2rem;
+            color: var(--accent-pink);
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+        
+        .confirmation-message {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+        
+        .section-title {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.5rem;
+            color: var(--primary-pink);
+            margin-bottom: 1.5rem;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .info-box {
+            background: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+        }
+        
+        .info-box h3 {
+            color: var(--primary-pink);
+            margin-bottom: 0.8rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+        
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .order-summary-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-pink);
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid #eee;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: var(--primary-pink);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--light-pink);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-pink);
+            border: 2px solid var(--primary-pink);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--primary-pink);
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .info-grid { grid-template-columns: 1fr; }
+            .action-buttons { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span>🛒</span>
+                FRESHMART
+            </a>
+        </div>
+    </nav>
+
+    <div class="confirmation-container">
+        <div class="success-icon">✓</div>
+        <h1>Order Confirmed!</h1>
+        <div class="order-number" id="orderNumber">Order #12345</div>
+        
+        <div class="confirmation-message">
+            <h2 class="section-title">Order Details</h2>
+            
+            <div class="info-grid">
+                <div class="info-box">
+                    <h3>Delivery Address</h3>
+                    <p id="deliveryName"></p>
+                    <p id="deliveryAddress"></p>
+                    <p id="deliveryCity"></p>
+                </div>
+                
+                <div class="info-box">
+                    <h3>Contact Information</h3>
+                    <p id="contactEmail"></p>
+                    <p id="contactPhone"></p>
+                </div>
+            </div>
+            
+            <div class="order-items">
+                <h3 class="section-title">Items Ordered</h3>
+                <div id="itemsList"></div>
+                <div class="order-summary-total">
+                    <span>Total Paid</span>
+                    <span id="totalPaid">$0.00</span>
+                </div>
+            </div>
+        </div>
+        
+        <p style="background: #e8f5e9; padding: 1.5rem; border-radius: 10px; margin-bottom: 2rem;">
+            <strong>📧 Confirmation email sent!</strong><br>
+            Your order will be delivered within 2-4 hours.
+        </p>
+        
+        <div class="action-buttons">
+            <a href="products.html" class="btn btn-primary">Continue Shopping</a>
+            <a href="index.html" class="btn btn-secondary">Back to Home</a>
+        </div>
+    </div>
+
+    <script>
+        const orderData = JSON.parse(localStorage.getItem('lastOrder'));
+        
+        if (!orderData) {
+            alert('No order found!');
+            window.location.href = 'index.html';
+        } else {
+            const orderNum = Math.floor(100000 + Math.random() * 900000);
+            document.getElementById('orderNumber').textContent = `Order #${orderNum}`;
+            
+            document.getElementById('deliveryName').textContent = 
+                `${orderData.firstName} ${orderData.lastName}`;
+            document.getElementById('deliveryAddress').textContent = orderData.address;
+            document.getElementById('deliveryCity').textContent = 
+                `${orderData.city}, ${orderData.zipCode}`;
+            
+            document.getElementById('contactEmail').textContent = orderData.email;
+            document.getElementById('contactPhone').textContent = orderData.phone;
+            
+            const itemsList = document.getElementById('itemsList');
+            const subtotal = orderData.items.reduce((sum, item) => 
+                sum + (item.price * item.quantity), 0);
+            const delivery = subtotal > 30 ? 0 : 5;
+            const total = subtotal + delivery;
+            
+            itemsList.innerHTML = orderData.items.map(item => `
+                <div class="order-item">
+                    <div>
+                        <strong>${item.name}</strong><br>
+                        <span style="color: #666; font-size: 0.9rem;">Qty: ${item.quantity}</span>
+                    </div>
+                    <div>$${(item.price * item.quantity).toFixed(2)}</div>
+                </div>
+            `).join('');
+            
+            document.getElementById('totalPaid').textContent = `$${total.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
