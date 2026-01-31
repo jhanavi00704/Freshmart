@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - FRESHMART</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Raleway:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-pink: #db2777;
+            --light-pink: #f472b6;
+            --accent-pink: #ec4899;
+            --dark-gray: #1b263b;
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Raleway', sans-serif;
+            background: var(--light-bg);
+            color: var(--dark-gray);
+        }
+        
+        nav {
+            background: var(--white);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-pink);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-pink);
+        }
+        
+        .cart-icon {
+            position: relative;
+            font-size: 1.5rem;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background: var(--accent-pink);
+            color: white;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-pink) 0%, var(--light-pink) 100%);
+            color: white;
+            padding: 3rem 5%;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .filters {
+            max-width: 1400px;
+            margin: 3rem auto;
+            padding: 0 5%;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .filter-btn {
+            padding: 0.8rem 2rem;
+            border: 2px solid var(--primary-pink);
+            background: white;
+            color: var(--primary-pink);
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary-pink);
+            color: white;
+        }
+        
+        .products-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 5% 5rem;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2.5rem;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+        }
+        
+        .product-info {
+            padding: 1.5rem;
+        }
+        
+        .product-category {
+            color: var(--light-pink);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-name {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-description {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-pink);
+        }
+        
+        .add-to-cart-btn {
+            background: var(--primary-pink);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .add-to-cart-btn:hover {
+            background: var(--light-pink);
+        }
+        
+        footer {
+            background: var(--dark-gray);
+            color: white;
+            padding: 3rem 5% 1.5rem;
+            margin-top: 5rem;
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            font-family: 'Quicksand', sans-serif;
+            margin-bottom: 1.5rem;
+            color: var(--light-pink);
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            line-height: 2.5;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span>🛒</span>
+                FRESHMART
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="signin.html">Sign In</a></li>
+                <li>
+                    <a href="cart.html" class="cart-icon">
+                        🛒
+                        <span class="cart-count" id="cartCount">0</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <h1>Our Products</h1>
+        <p>Fresh groceries delivered to your doorstep</p>
+    </div>
+
+    <div class="filters">
+        <button class="filter-btn active" onclick="filterProducts('all')">All Products</button>
+        <button class="filter-btn" onclick="filterProducts('vegetables')">Vegetables</button>
+        <button class="filter-btn" onclick="filterProducts('fruits')">Fruits</button>
+        <button class="filter-btn" onclick="filterProducts('dairy')">Dairy</button>
+        <button class="filter-btn" onclick="filterProducts('bakery')">Bakery</button>
+        <button class="filter-btn" onclick="filterProducts('beverages')">Beverages</button>
+    </div>
+
+    <div class="products-container">
+        <div class="products-grid" id="productsGrid"></div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>FRESHMART</h3>
+                <p>Your trusted online grocery store.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Track Order</a></li>
+                    <li><a href="#">Returns</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul>
+                    <li><a href="tel:+1234567890">📞 +1 (234) 567-890</a></li>
+                    <li><a href="mailto:info@freshmart.com">✉️ info@freshmart.com</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 FRESHMART. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const products = [
+            { name: 'Organic Spinach', category: 'vegetables', price: 2.99, desc: 'Fresh organic spinach, 250g', icon: '🥬' },
+            { name: 'Red Apples', category: 'fruits', price: 4.99, desc: 'Fresh red apples, 1kg', icon: '🍎' },
+            { name: 'Fresh Milk', category: 'dairy', price: 3.49, desc: 'Whole milk, 1 liter', icon: '🥛' },
+            { name: 'Whole Wheat Bread', category: 'bakery', price: 2.49, desc: 'Fresh baked bread', icon: '🍞' },
+            { name: 'Tomatoes', category: 'vegetables', price: 3.99, desc: 'Fresh tomatoes, 500g', icon: '🍅' },
+            { name: 'Bananas', category: 'fruits', price: 2.49, desc: 'Ripe bananas, 1 dozen', icon: '🍌' },
+            { name: 'Cheddar Cheese', category: 'dairy', price: 5.99, desc: 'Premium cheddar, 250g', icon: '🧀' },
+            { name: 'Croissants', category: 'bakery', price: 4.99, desc: 'Butter croissants, 4 pack', icon: '🥐' },
+            { name: 'Carrots', category: 'vegetables', price: 2.99, desc: 'Fresh carrots, 500g', icon: '🥕' },
+            { name: 'Oranges', category: 'fruits', price: 5.99, desc: 'Juicy oranges, 1kg', icon: '🍊' },
+            { name: 'Yogurt', category: 'dairy', price: 3.99, desc: 'Greek yogurt, 500g', icon: '🥛' },
+            { name: 'Bagels', category: 'bakery', price: 3.99, desc: 'Assorted bagels, 6 pack', icon: '🥯' },
+            { name: 'Broccoli', category: 'vegetables', price: 3.49, desc: 'Fresh broccoli, 400g', icon: '🥦' },
+            { name: 'Strawberries', category: 'fruits', price: 6.99, desc: 'Fresh strawberries, 250g', icon: '🍓' },
+            { name: 'Orange Juice', category: 'beverages', price: 4.49, desc: 'Fresh orange juice, 1L', icon: '🧃' },
+            { name: 'Green Tea', category: 'beverages', price: 5.99, desc: 'Premium green tea, 20 bags', icon: '🍵' },
+        ];
+
+        function displayProducts(filter = 'all') {
+            const grid = document.getElementById('productsGrid');
+            const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
+            
+            grid.innerHTML = filtered.map(product => `
+                <div class="product-card">
+                    <div class="product-image">${product.icon}</div>
+                    <div class="product-info">
+                        <div class="product-category">${product.category}</div>
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-description">${product.desc}</p>
+                        <div class="product-footer">
+                            <div class="product-price">$${product.price}</div>
+                            <button class="add-to-cart-btn" onclick="addToCart('${product.name}', ${product.price})">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterProducts(category) {
+            displayProducts(category);
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        
+        function updateCartCount() {
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = count;
+        }
+        
+        function addToCart(name, price) {
+            const existingItem = cart.find(item => item.name === name);
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({ name, price, quantity: 1 });
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            alert(`${name} added to cart!`);
+        }
+        
+        displayProducts();
+        updateCartCount();
+    </script>
+</body>
+</html>
